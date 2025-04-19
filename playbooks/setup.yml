@@ -1,0 +1,20 @@
+---
+- name: Install and configure Tailscale
+  hosts: all
+  become: true
+  vars_files:
+    - ../secrets.yml
+  roles:
+    - tailscale
+
+- name: Test Ansible Vault
+  hosts: localhost # Run locally for this simple test
+  connection: local
+  gather_facts: no
+  vars_files:
+    - ../secrets.yml # Tell the playbook to load variables from the vault file
+
+  tasks:
+    - name: Display the secret variable
+      debug:
+        msg: "My secret is: {{ tailscale_auth_key }}"

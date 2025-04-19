@@ -1,0 +1,40 @@
+---
+# Custom pre-tasks for Tailscale
+- name: Gather tailscale facts
+  hosts: k3s_cluster
+  become: true
+  gather_facts: yes
+  vars_files:
+    - secrets.yml
+  tasks:
+    - name: Ensure Tailscale facts are gathered
+      setup:
+        gather_subset:
+          - network
+      when: ansible_tailscale0 is not defined
+
+# Follow the same structure as the k3s-ansible site.yml but use the collection's roles
+- name: Cluster preparation
+  hosts: k3s_cluster
+  gather_facts: true
+  become: true
+  vars_files:
+    - ../secrets.yml
+  roles:
+    - role: k3s.orchestration.prereq
+    - role: k3s.orchestration.airgap
+    - role: k3s.orchestration.raspberrypi
+
+# - name: Setup K3S server
+#   hosts: server
+#   become: true
+#   roles:
+#     - role: k3s.orchestration.k3s_server
+
+- name: Setup K3S agent
+  hosts: agent
+  become: true
+  vars_files:
+    - ../secrets.yml
+  roles:
+    - role: k3s.orchestration.k3s_agent

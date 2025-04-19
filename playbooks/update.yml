@@ -1,0 +1,6 @@
+---
+- name: Update servers
+  hosts: vms # This should match the group name in your inventory.yml
+  become: true
+  roles:
+    - update_server 

@@ -1,0 +1,8 @@
+---
+- name: Install and configure Tailscale
+  include_role:
+    name: artis3n.tailscale.device
+  vars:
+    tailscale_authkey: "{{ tailscale_auth_key }}"
+    tailscale_hostname: "{{ ansible_hostname }}"
+    tailscale_accept_routes: true
