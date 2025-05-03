@@ -1,7 +1,7 @@
 all:
   hosts:
     vm-kube-agent-01:
-      ansible_host: 192.168.1.85
+      ansible_host: vm-kube-agent-01
       ansible_user: tryy3
       ansible_python_interpreter: /usr/bin/python3
       k3s_control_node: false
@@ -46,10 +46,7 @@ k3s_cluster:
     # extra_manifests: [ '/path/to/manifest1.yaml', '/path/to/manifest2.yaml' ]
     # airgap_dir: /tmp/k3s-airgap-images
 
-    server_config_yaml:  |
-      # os-deploy/rpi-5-gopher-files/ansible/roles/k3s_agent/templates/config.yaml.j2
-      # K3s agent configuration managed by Ansible
-      node-external-ip: "{{ ansible_tailscale0.ipv4.address }}"
+    #server_config_yaml:  |
     agent_config_yaml:  |
       # os-deploy/rpi-5-gopher-files/ansible/roles/k3s_agent/templates/config.yaml.j2
       # K3s agent configuration managed by Ansible
