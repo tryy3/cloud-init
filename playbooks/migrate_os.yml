@@ -1,6 +1,6 @@
 ---
 - name: Migrate OS from vda to vdb
-  hosts: vms
+  hosts: setup_vm
   become: yes
   vars:
     source_disk: /dev/vdb
