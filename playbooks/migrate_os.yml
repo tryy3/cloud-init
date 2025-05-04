@@ -25,6 +25,8 @@
 
           Type exactly 'yes' to proceed, or press Ctrl+C then 'a' to abort.
       register: user_confirmation
+      # Only run this task if skip_confirmation is not defined or is false
+      when: not (skip_confirmation | default(false) | bool)
       # Fail the playbook if the user input is not exactly 'yes' (case-insensitive)
       failed_when: user_confirmation.user_input | lower != 'yes'
 
